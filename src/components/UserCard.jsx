@@ -10,6 +10,7 @@ const UserCard = ({ user }) => {
     firstName,
     lastName,
     photoUrl,
+    profileUrl,
     skills,
     about,
     age,
@@ -18,6 +19,9 @@ const UserCard = ({ user }) => {
     gitHubUrl,
     linkedInUrl,
   } = user;
+  const userPhoto = photoUrl || profileUrl;
+  const userSkills = Array.isArray(skills) ? skills : [];
+  const userAbout = about || "add your bio here";
   const [show, setShow] = useState(false);
   const [toastInterested, setToastInterested] = useState(false);
   const [toastIgnored, setToastIgnored] = useState(false);
@@ -68,7 +72,7 @@ const UserCard = ({ user }) => {
         <figure className="absolute -z-10">
           <img
             className="h-[612px]  w-96  object-cover  overflow-hidden"
-            src={photoUrl}
+            src={userPhoto}
             //https://cdn.iconscout.com/icon/premium/png-512-thumb/laptop-user-icon-svg-download-png-9140623.png?f=webp&w=512
             alt="Shoes"
           />
@@ -82,7 +86,7 @@ const UserCard = ({ user }) => {
             <svg
               stroke="currentColor"
               fill="currentColor"
-              stroke-width="0"
+              strokeWidth="0"
               viewBox="0 0 496 512"
               height="1em"
               width="1em"
@@ -101,7 +105,7 @@ const UserCard = ({ user }) => {
               stroke="currentColor"
               className="bg-white text-sky-400 "
               fill="currentColor"
-              stroke-width="0"
+              strokeWidth="0"
               viewBox="0 0 448 512"
               height="1em"
               width="1em"
@@ -153,12 +157,14 @@ const UserCard = ({ user }) => {
               </span>
             </p>
           )}
-          {skills && (
+          {userSkills.length > 0 && (
             <p>
               <span className="  text-cyan-200 font-extrabold backdrop-blur-sm">
                 Skills:
               </span>{" "}
-              <span className="text-white font-bold">{skills.join(", ")}</span>
+              <span className="text-white font-bold">
+                {userSkills.join(", ")}
+              </span>
             </p>
           )}
           <div className="">
@@ -166,9 +172,9 @@ const UserCard = ({ user }) => {
               <span className="font-extrabold  text-cyan-200 backdrop-blur-sm ">
                 About:
               </span>{" "}
-              <span className="text-white font-bold">{about}</span>
+              <span className="text-white font-bold">{userAbout}</span>
             </p>
-            {about.length > 93 && (
+            {userAbout.length > 93 && (
               <button
                 onClick={() => setShow(!show)}
                 className=" z-10  text-green-100 font-bold  cursor-pointer"

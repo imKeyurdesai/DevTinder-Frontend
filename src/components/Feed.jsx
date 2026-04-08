@@ -19,7 +19,16 @@ const Feed = () => {
         withCredentials: true,
       });
 
-      dispatch(addFeed(res.data.data));
+      const feedData = Array.isArray(res.data?.data)
+        ? res.data.data.map((user) => ({
+            ...user,
+            photoUrl: user.photoUrl || user.profileUrl,
+            gitHubUrl: user.gitHubUrl || user.github,
+            linkedInUrl: user.linkedInUrl || user.linkedin,
+          }))
+        : [];
+
+      dispatch(addFeed(feedData));
     } catch (err) {
       console.log(err.response?.data?.message || err.message);
       dispatch(addFeed([]));
