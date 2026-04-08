@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../utils/constants";
 import { addFeed } from "../utils/feedSlice";
@@ -14,7 +13,7 @@ const Feed = () => {
   const feed = useSelector((store) => store.feed);
   const infoShow = useSelector((store) => store.info.show);
 
-  const getFeed = async () => {
+  const getFeed = useCallback(async () => {
     try {
       const res = await axios.get(BASE_URL + "/feed", {
         withCredentials: true,
@@ -22,15 +21,16 @@ const Feed = () => {
 
       dispatch(addFeed(res.data.data));
     } catch (err) {
-      console.log(err.message);
+      console.log(err.response?.data?.message || err.message);
+      dispatch(addFeed([]));
     }
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     // if (!feed) {
     getFeed();
     // }
-  }, []);
+  }, [getFeed]);
 
   if (!feed) {
     return (
@@ -56,7 +56,8 @@ const Feed = () => {
       {infoShow && (
         <div
           className="fixed inset-0  backdrop-blur-xs 
-           flex justify-center items-center z-50 transition-opacity">
+           flex justify-center items-center z-50 transition-opacity"
+        >
           <InfoCard />
         </div>
       )}

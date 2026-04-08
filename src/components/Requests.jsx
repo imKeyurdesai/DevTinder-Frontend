@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addRequests } from "../utils/requestSlice";
@@ -12,20 +12,21 @@ const Requests = () => {
   const infoShow = useSelector((store) => store.info.show);
   const infoData = useSelector((store) => store.info.data);
 
-  const fetchRequests = async () => {
+  const fetchRequests = useCallback(async () => {
     try {
       const res = await axios.get(BASE_URL + "/user/requests", {
         withCredentials: true,
       });
       dispatch(addRequests(res.data.data));
     } catch (err) {
-      console.log(err.responce.message);
+      console.log(err.response?.data?.message || err.message);
+      dispatch(addRequests([]));
     }
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     fetchRequests();
-  }, []);
+  }, [fetchRequests]);
 
   if (!requests)
     return (
@@ -48,7 +49,8 @@ const Requests = () => {
       {infoShow && (
         <div
           className="fixed inset-0 bg-black/50 backdrop-blur-sm
-               flex justify-center items-center z-40 ">
+               flex justify-center items-center z-40 "
+        >
           {!infoData ? (
             <span className="loading loading-bars loading-xl text-white"></span>
           ) : (

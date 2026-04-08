@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -19,10 +18,10 @@ const EditProfile = ({ user }) => {
   const [about, setAbout] = useState(user.about);
   const [emailId, setEmailId] = useState(user.emailId);
   const [gitHubUrl, setGithubUrl] = useState(
-    user.github || "https://github.com/",
+    user.gitHubUrl || user.github || "https://github.com/",
   );
   const [linkedInUrl, setLinkedInUrl] = useState(
-    user.linkedin || "https://www.linkedin.com/",
+    user.linkedInUrl || user.linkedin || "https://www.linkedin.com/",
   );
   const [skills, setSkills] = useState(user.skills || []);
   const [errorMessage, setErrorMessage] = useState();
@@ -59,8 +58,10 @@ const EditProfile = ({ user }) => {
 
       // alert("Profile updated successfully!");
     } catch (err) {
-      console.log(err.response.data);
-      setErrorMessage(err.response.data);
+      console.log(err.response?.data);
+      setErrorMessage(
+        err.response?.data?.message || "Unable to update profile",
+      );
     }
   };
 
@@ -72,7 +73,8 @@ const EditProfile = ({ user }) => {
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 shrink-0 stroke-current"
             fill="none"
-            viewBox="0 0 24 24">
+            viewBox="0 0 24 24"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -87,7 +89,8 @@ const EditProfile = ({ user }) => {
       {infoShow && (
         <div
           className="fixed inset-0  backdrop-blur-xs 
-           flex justify-center items-center z-50 transition-opacity">
+           flex justify-center items-center z-50 transition-opacity"
+        >
           {!infoData ? (
             <span className="loading loading-bars loading-xl"></span>
           ) : (
@@ -173,7 +176,8 @@ const EditProfile = ({ user }) => {
                   <select
                     className="select select-sm select-bordered w-full"
                     value={gender}
-                    onChange={(e) => setGender(e.target.value)}>
+                    onChange={(e) => setGender(e.target.value)}
+                  >
                     <option>Male</option>
                     <option>Female</option>
                     <option>Other</option>
@@ -246,12 +250,14 @@ const EditProfile = ({ user }) => {
               <div className="flex gap-2 ">
                 <button
                   className="btn btn-outline btn-sm w-1/2 text-white"
-                  onClick={() => navigate("/feed")}>
+                  onClick={() => navigate("/feed")}
+                >
                   Cancel
                 </button>
                 <button
                   className="btn btn-primary btn-sm w-1/2 "
-                  onClick={saveProfile}>
+                  onClick={saveProfile}
+                >
                   Save
                 </button>
               </div>

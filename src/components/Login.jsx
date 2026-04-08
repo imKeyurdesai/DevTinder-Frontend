@@ -29,11 +29,11 @@ const Login = () => {
         { withCredentials: true },
       );
 
-      dispatch(addUser(res.data));
+      dispatch(addUser(res.data?.data ?? res.data));
       navigate("/feed");
     } catch (err) {
       console.log(err);
-      setErrorMessage(err.response?.data?.message || "Something went wronge!!");
+      setErrorMessage(err.response?.data?.message || "Something went wrong!!");
     }
   };
 
@@ -56,7 +56,7 @@ const Login = () => {
       navigate("/feed");
     } catch (err) {
       console.log(err);
-      setErrorMessage(err.response?.data?.message || "Something went wronge!!");
+      setErrorMessage(err.response?.data?.message || "Something went wrong!!");
     }
   };
 
@@ -180,7 +180,8 @@ const Login = () => {
                     className="select "
                     value={gender}
                     onChange={(e) => setGender(e.target.value)}
-                    required>
+                    required
+                  >
                     <option value="">Select</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -227,7 +228,7 @@ const Login = () => {
                 Password<span className="text-red-500">*</span>
               </label>
               <input
-                type="text"
+                type="password"
                 className="input w-full"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -241,7 +242,8 @@ const Login = () => {
                   New User?{" "}
                   <span
                     className="text-blue-500 cursor-pointer hover:text-blue-600 underline"
-                    onClick={() => setIsLoginForm(!isLoginForm)}>
+                    onClick={() => setIsLoginForm(!isLoginForm)}
+                  >
                     Sign Up Here
                   </span>
                 </>
@@ -250,7 +252,8 @@ const Login = () => {
                   Existing User?{" "}
                   <span
                     className="text-blue-500 cursor-pointer  hover:text-blue-600 underline"
-                    onClick={() => setIsLoginForm(!isLoginForm)}>
+                    onClick={() => setIsLoginForm(!isLoginForm)}
+                  >
                     Login Here
                   </span>
                 </>
@@ -261,13 +264,15 @@ const Login = () => {
               {isLoginForm ? (
                 <button
                   className="btn btn-primary mx-auto px-24 my-4"
-                  onClick={handleLogin}>
+                  onClick={handleLogin}
+                >
                   Login
                 </button>
               ) : (
                 <button
                   className="btn btn-primary mx-auto  px-24 my-4"
-                  onClick={handleSignUp}>
+                  onClick={handleSignUp}
+                >
                   Sign Up
                 </button>
               )}

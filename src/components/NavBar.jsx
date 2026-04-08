@@ -5,7 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 import { removeUser } from "../utils/userSlice";
 import { NavLink } from "react-router-dom";
-import Lottie from "lottie-react";
 
 const NavBar = () => {
   const user = useSelector((store) => store.user);
@@ -32,7 +31,8 @@ const NavBar = () => {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           className="cursor-pointer"
-          onClick={() => navigate("/feed")}>
+          onClick={() => navigate("/feed")}
+        >
           <rect
             x="4"
             y="8"
@@ -41,7 +41,7 @@ const NavBar = () => {
             rx="8"
             fill="#020617"
             stroke="#22C55E"
-            stroke-width="2"
+            strokeWidth="2"
           />
 
           <circle cx="14" cy="18" r="3" fill="#22C55E" />
@@ -51,29 +51,32 @@ const NavBar = () => {
           <text
             x="14"
             y="42"
-            font-size="16"
+            fontSize="16"
             fill="#22C55E"
-            font-family="monospace"
-            font-weight="700">
+            fontFamily="monospace"
+            fontWeight="700"
+          >
             &gt;_
           </text>
 
           <text
             x="80"
             y="36"
-            font-size="26"
-            font-weight="700"
+            fontSize="26"
+            fontWeight="700"
             fill="#E5E7EB"
-            font-family="Inter, system-ui, sans-serif">
+            fontFamily="Inter, system-ui, sans-serif"
+          >
             Dev<tspan fill="#22C55E">Tinder</tspan>
           </text>
 
           <text
             x="80"
             y="54"
-            font-size="12"
+            fontSize="12"
             fill="#94A3B8"
-            font-family="Inter, system-ui, sans-serif">
+            fontFamily="Inter, system-ui, sans-serif"
+          >
             Connect. Build. Collaborate.
           </text>
         </svg>
@@ -89,8 +92,9 @@ const NavBar = () => {
                     isActive
                       ? "bg-indigo-600 text-white p-2 rounded-2xl transition-all duration-300"
                       : "text-gray-300 hover:text-white transition-all duration-300"
-                  }>
-                  Home 
+                  }
+                >
+                  Home
                 </NavLink>
               </li>
               <li className="hover:text-blue-500 ">
@@ -100,7 +104,8 @@ const NavBar = () => {
                     isActive
                       ? "bg-indigo-600 text-white p-2 rounded-2xl transition-all duration-300"
                       : "text-gray-300 hover:text-white transition-all duration-300"
-                  }>
+                  }
+                >
                   Connections
                 </NavLink>
               </li>
@@ -111,7 +116,8 @@ const NavBar = () => {
                     isActive
                       ? "bg-indigo-600 text-white p-2 rounded-2xl transition-all duration-300"
                       : "text-gray-300 hover:text-white transition-all duration-300"
-                  }>
+                  }
+                >
                   Requests
                 </NavLink>
               </li>
@@ -122,28 +128,31 @@ const NavBar = () => {
                     isActive
                       ? "bg-yellow-300 text-black p-2 font-bold rounded-2xl transition-all duration-300"
                       : "text-yellow-300 font-semibold  transition-all duration-300"
-                  }>
-                  Premium 
+                  }
+                >
+                  Premium
                 </NavLink>
               </li>
             </ul>
           </div>
           <div className="flex gap-2">
             <p className="my-auto pr-2.5 font-semibold italic">
-              Welcome, {user.firstName.toUpperCase()}  
+              Welcome, {user?.firstName.toUpperCase()}
             </p>
             <div className="dropdown dropdown-end">
               <div
                 tabIndex={0}
                 role="button"
-                className="btn btn-ghost btn-circle avatar mr-6">
+                className="btn btn-ghost btn-circle avatar mr-6"
+              >
                 <div className="w-10 rounded-full bg-white">
-                  <img alt="userPhoto" src={user.photoUrl} />
+                  <img alt="userPhoto" src={user?.photoUrl} />
                 </div>
               </div>
               <ul
                 tabIndex="-1"
-                className="menu menu-sm dropdown-content bg-gray-900  rounded-box z-1 mt-3 w-52 p-2 shadow">
+                className="menu menu-sm dropdown-content bg-gray-900  rounded-box z-1 mt-3 w-52 p-2 shadow"
+              >
                 <li>
                   <Link to="/profile" className="justify-between">
                     Profile

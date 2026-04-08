@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/connectionSlice";
@@ -13,7 +12,7 @@ const Connections = () => {
   const infoData = useSelector((store) => store.info.data);
   const infoShow = useSelector((store) => store.info.show);
 
-  const fetchConnections = async () => {
+  const fetchConnections = useCallback(async () => {
     try {
       const res = await axios.get(BASE_URL + "/user/connections", {
         withCredentials: true,
@@ -21,13 +20,14 @@ const Connections = () => {
 
       dispatch(addConnections(res.data.data));
     } catch (err) {
-      console.log(err.response.message);
+      console.log(err.response?.data?.message || err.message);
+      dispatch(addConnections([]));
     }
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     fetchConnections();
-  }, []);
+  }, [fetchConnections]);
 
   if (!connections)
     return (
@@ -47,7 +47,8 @@ const Connections = () => {
       {infoShow && (
         <div
           className="fixed inset-0  backdrop-blur-xs 
-           flex justify-center items-center z-50 transition-opacity">
+           flex justify-center items-center z-50 transition-opacity"
+        >
           {!infoData ? (
             <span className="loading loading-bars loading-xl"></span>
           ) : (
@@ -57,7 +58,8 @@ const Connections = () => {
       )}
       <h1
         className="text-3xl  font-bold mb-8 text-indigo-400
-   flex justify-center">
+   flex justify-center"
+      >
         Your Connections
       </h1>
 
