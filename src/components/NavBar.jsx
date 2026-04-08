@@ -90,7 +90,7 @@ const NavBar = () => {
                       ? "bg-indigo-600 text-white p-2 rounded-2xl transition-all duration-300"
                       : "text-gray-300 hover:text-white transition-all duration-300"
                   }>
-                  Home{" "}
+                  Home 
                 </NavLink>
               </li>
               <li className="hover:text-blue-500 ">
@@ -123,14 +123,14 @@ const NavBar = () => {
                       ? "bg-yellow-300 text-black p-2 font-bold rounded-2xl transition-all duration-300"
                       : "text-yellow-300 font-semibold  transition-all duration-300"
                   }>
-                  Premium{" "}
+                  Premium 
                 </NavLink>
               </li>
             </ul>
           </div>
           <div className="flex gap-2">
             <p className="my-auto pr-2.5 font-semibold italic">
-              Welcome, {user.firstName.toUpperCase()}{" "}
+              Welcome, {user.firstName.toUpperCase()}  
             </p>
             <div className="dropdown dropdown-end">
               <div

@@ -118,7 +118,7 @@ const Login = () => {
           {/* Short description */}
         </div>
 
-        <div className="card card-border bg-base-300 w-[600px] rounded-xl">
+        <div className="card card-border bg-base-300 w-150 rounded-xl">
           <div className="card-body">
             <h2 className="card-title mx-auto text-2xl">
               {isLoginForm ? "Login" : "Sign Up"}
@@ -132,7 +132,7 @@ const Login = () => {
                     </label>
                     <input
                       type="text"
-                      className="input w-[205px]"
+                      className="input w-51.25"
                       value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
                       placeholder="Type here"
@@ -144,7 +144,7 @@ const Login = () => {
                     </label>
                     <input
                       type="text"
-                      className="input w-[205px]"
+                      className="input w-51.25"
                       value={lastName}
                       onChange={(e) => setLastName(e.target.value)}
                       placeholder="Type here"
