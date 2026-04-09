@@ -1,1 +1,1 @@
-export const BASE_URL = "https://devtinder-backend-8mbl.onrender.com";
+export const BASE_URL = "https://devtinderbackend-production.up.railway.app/";
